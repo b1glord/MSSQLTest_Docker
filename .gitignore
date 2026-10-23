@@ -1,0 +1,21 @@
+# Dosya Yolu: REPO_ROOT/.gitignore
+# Amac: Yerel sirlar, DB yedekleri ve ortam dosyalarini Git disinda tutar
+# Modul - GitIgnore
+# Version: 2.0.1
+# Aciklama: Test ortami gizlilik ve veri koruma kurallari
+# Bagimli Oldugu Katman: Config
+
+.env
+.env.*
+!.env.example
+backup/
+*.bak
+*.bck
+*.mdf
+*.ndf
+*.ldf
+*.log
+*.zip
+logs/
+.vscode/
+.idea/
