@@ -1,0 +1,31 @@
+# Dosya Yolu: REPO_ROOT/.github/workflows/validate.yml
+# Amac: PowerShell parser ve Docker Compose dosyasi yapisini kontrol eder
+# Modul - GitHubActions
+# Version: 2.0.1
+# Aciklama: Secrets olmadan statik kontrol, canli MSSQL testi degildir
+# Bagimli Oldugu Katman: Tool
+name: Validate
+on:
+  push:
+  pull_request:
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse PowerShell script
+        shell: pwsh
+        run: |
+          $tokens = $null
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile('MSSQL.ps1', [ref]$tokens, [ref]$errors) | Out-Null
+          if ($errors.Count -gt 0) {
+            $errors | ForEach-Object { Write-Error $_.Message }
+            exit 1
+          }
+      - name: Validate Compose configuration
+        run: docker compose --env-file .env.example -f docker-compose.yml config --quiet
+      - name: Verify ignored secret and backup paths
+        run: |
+          test "$(git check-ignore .env)" = ".env"
+          test "$(git check-ignore backup/sample.bck)" = "backup/sample.bck"
