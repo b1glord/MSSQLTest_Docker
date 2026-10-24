@@ -1,7 +1,7 @@
 # Dosya Yolu: REPO_ROOT/MSSQL.ps1
 # Amac: SQL Server 2022 Docker test ortamini tek komut veya menuden yonetir
 # Modul - PowerShell
-# Version: 2.0.0
+# Version: 2.0.1
 # Aciklama: Mevcut compose/env dosyalarini koruyan tasinabilir MSSQL yoneticisi
 # Bagimli Oldugu Katman: Tool
 
@@ -18,7 +18,7 @@ param(
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
-$ScriptVersion = '2.0.0'
+$ScriptVersion = '2.0.1'
 $RootPath = $PSScriptRoot
 $EnvPath = Join-Path $RootPath '.env'
 $BackupDirectory = Join-Path $RootPath 'backup'
@@ -162,7 +162,7 @@ function Ensure-Project {
 # Dosya Yolu: REPO_ROOT/.env (runtime, git'e eklemeyin)
 # Amac: Yerel MSSQL Docker test ortami ayarlari
 # Modul - Env
-# Version: 2.0.0
+# Version: 2.0.1
 # Aciklama: Hassas sifreyi yerel makinede saklar
 # Bagimli Oldugu Katman: Config
 MSSQL_CONTAINER_NAME=mssql-test
@@ -174,6 +174,10 @@ MSSQL_PID=Developer
 MSSQL_VOLUME_NAME=mssql-test-data
 "@
         Write-FileUtf8 -Path $EnvPath -Content $envContent
+        # @dev-id MSSQL-CONFIG-012
+        # @purpose Kullaniciya sifrenin .env icine kaydedildigini gizli bilgiyi yazmadan bildirir.
+        # @reason Ilk kurulumda elle .env duzenlemeye gerek kalmadigi anlasilsin.
+        Write-Host 'SQL sa şifresi .env dosyasına kaydedildi.' -ForegroundColor Green
         Write-Warning '.env dosyası açık metin şifre içerir. Dosyayı paylaşmayın veya Git deposuna eklemeyin.'
     }
     if (-not $composeExists) {
