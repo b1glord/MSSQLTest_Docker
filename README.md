@@ -2,7 +2,7 @@
 Dosya Yolu: REPO_ROOT/README.md
 Amac: MSSQL 2022 test Docker paketinin guvenli kurulum ve bakimini aciklar
 Modul - Markdown
-Version: 2.0.1
+Version: 2.0.2
 Aciklama: Tek PowerShell yoneticisi, secrets ayrimi ve veri korunumu
 Bagimli Oldugu Katman: Documentation
 -->
@@ -29,7 +29,7 @@ cd .\MSSQLTest_Docker
 .\MSSQL.ps1
 ```
 
-3. Menuden **1 - Baslat / ilk kurulum** secin. Mevcut container/volume yoksa SA sifresi gizli olarak sorulur; `.env` uretilir ve SQL Server baslar.
+3. Menuden **1 - Baslat / ilk kurulum** secin. Mevcut container/volume yoksa **SQL sa sifresi ve tekrari konsoldan gizli olarak istenir**. Parola kurallari gectiginde betik `.env` dosyasina otomatik kaydeder ve SQL Server'i baslatir; `.env` dosyasini elle olusturmaniz veya duzenlemeniz gerekmez.
 4. Saglik ve baglanti kontrolu icin menuden **4 (Durum)** ve **5 (Test)** secin.
 
 Komut satiri ile:
